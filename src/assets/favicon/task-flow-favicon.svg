@@ -1,0 +1,7 @@
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- background -->
+  <rect x="0" y="0" width="64" height="64" rx="14" fill="#8B5CF6"></rect>
+
+  <!-- tick -->
+  <path d="M18 34L27 43L46 22" stroke="white" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"></path>
+</svg>
