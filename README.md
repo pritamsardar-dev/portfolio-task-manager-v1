@@ -1,131 +1,117 @@
 # TaskFlow
 
-A browser-based productivity app for managing daily tasks, tracking time, and reviewing your work output. No backend, no account, no setup. Everything runs in your browser and persists via localStorage.
+A browser based task manager built for personal productivity. It combines task tracking, per task timers, productivity analytics, and data export without requiring an account or backend.
 
-## Links
+Live: https://taskflow.pritamsardar.dev  |  Case Study: https://pritamsardar.dev/full-case-study/portfolio-task-manager-v1?source=case-studies
 
-* Live Demo: Coming soon
-* Portfolio Website: Coming soon
-
-## Screenshots
-
-### Dashboard
-
-![TaskFlow dashboard showing task management, timers, and task organization](./assets/readme/dashboard.webp)
-
-### Analytics
-
-![TaskFlow analytics dashboard with productivity curve and daily hours heatmap](./assets/readme/analytics.webp)
-
-### Mobile View
-
-![TaskFlow mobile responsive interface](./assets/readme/mobile.webp)
-
-## Stack
-
-* React 19
-* Vite 8
-* TailwindCSS v4
-* clsx
-* Browser localStorage for persistence
-* No backend required
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset=".github/images/taskflow-hero-dark.png">
+  <img src=".github/images/taskflow-hero-light.png" alt="TaskFlow shown on laptop, tablet, and mobile" width="100%">
+</picture>
 
 ## Features
 
-* Task creation, editing, and deletion
-* Per-task timer with wall-clock accuracy
-* Target duration tracking with live progress
-* Task pinning and priority management
-* Reusable task templates with one-click import
-* Analytics dashboard with productivity curve
-* Daily hours heatmap
-* Date range filtering with a custom calendar picker
-* CSV and JSON export
-* Light and dark themes
-* Offline-first, no account required
+* Create tasks with names, notes, priorities, and target times
+* Start, pause, and reset timers for individual tasks
+* Track progress against time goals
+* Pin important tasks to keep them visible
+* Filter and sort tasks by status, priority, and date
+* Save reusable task templates and import them anytime
+* View productivity analytics across custom date ranges
+* Export task data as CSV or JSON
+* Store everything locally with no account required
 
-## Overview
+## Tech Stack
 
-TaskFlow lets you create tasks, run a per-task timer, set target minutes, and track how much time you actually spent. It filters tasks by date range, lets you pin important ones, and gives you an analytics view with a productivity chart and daily hours heatmap.
+**Frontend:** React 19, Vite, Tailwind CSS v4
 
-You can save reusable task templates and import them into any day. Tasks can be exported as CSV or JSON. The app supports light and dark themes, works offline, and loads instantly.
+**State Management:** React Hooks, localStorage
 
-## Architecture Notes
+**Utilities:** clsx, tailwind-merge
 
-State management is handled through custom React hooks.
-
-Task and template data are synchronized with localStorage using batched writes inside `requestAnimationFrame` to avoid layout thrashing during timer ticks.
-
-Timer tracking relies on wall-clock calculations rather than interval counts. Each task stores a `timerStartedAt` timestamp and a `baseSpentSeconds` value. On every tick, elapsed time is computed as `Date.now() - timerStartedAt`, so the timer catches up correctly after tab switches and page refreshes without drifting.
-
-Daily time totals are stored separately in `taskflow-daily-time` rather than being derived from task data. This is necessary because a single task can span multiple calendar days, and the analytics view needs accurate per-day breakdowns.
+**Deployment:** Vercel
 
 ## Getting Started
 
+### Prerequisites
+
+* Node.js 18 or higher
+
+### Clone and install
+
 ```bash
+git clone https://github.com/pritamsardar-dev/portfolio-task-manager-v1.git
+
+cd portfolio-task-manager-v1
+
 npm install
+```
+
+### Run locally
+
+```bash
 npm run dev
 ```
 
-The app runs at `http://localhost:5173` by default.
+App runs at `http://localhost:5173`.
 
-To build for production:
-
-```bash
-npm run build
-```
+No environment variables are required. All data is stored in the browser.
 
 ## Project Structure
 
 ```text
 src/
-  components/
-  features/
-  hooks/
-  pages/
-  utils/
-
-public/
-  theme-init.js
+├── components/
+│   ├── app-shell/      # Application shell and sidebar layout
+│   ├── dashboard/      # Dashboard UI and analytics views
+│   ├── layout/         # Header, filters, pagination, and date controls
+│   ├── task/           # Task cards, timers, progress tracking, and modals
+│   ├── templates/      # Saved task template management
+│   ├── export/         # Export screens and preview tables
+│   └── ui/             # Shared UI components and notifications
+│
+├── features/
+│   ├── dashboard/      # Analytics calculations and dashboard logic
+│   └── tasks/          # Task filtering, sorting, and storage logic
+│
+├── hooks/              # Custom React hooks
+├── pages/              # Route level application pages
+└── utils/              # Shared helper functions
 ```
 
-Key folders:
+## Technical Notes
 
-* `components/`: reusable UI components
-* `features/`: task and analytics logic
-* `hooks/`: custom React hooks
-* `pages/`: page-level components
-* `utils/`: storage, export, date, and theme helpers
+### Reliable Timer Persistence
 
-Key files worth knowing:
+Browser timers often lose accuracy when a tab becomes inactive, the page is refreshed, or the device goes to sleep.
 
-* `src/pages/Home.jsx`: main page, wires everything together
-* `src/hooks/useTasks.js`: task and template management
-* `src/hooks/useTaskTimer.js`: timer state and wall-clock calculations
-* `src/hooks/useCompletionNotifier.js`: completion notifications
-* `src/features/tasks/taskHelpers.js`: filtering and sorting utilities
-* `src/utils/dailyTimeStorage.js`: daily time tracking
-* `src/index.css`: global styles and design tokens
+Instead of relying on interval counts, TaskFlow stores timestamps and calculates elapsed time from the current clock whenever the timer updates. This keeps timers accurate even after long periods of inactivity.
 
-## Views
+### Daily Analytics Tracking
 
-* **All Tasks**: create and manage tasks with filters, sorting, pagination, and date range selection
-* **Saved Tasks**: build a reusable task library and import tasks into any day
-* **Analytics**: review productivity trends and daily activity breakdowns
-* **Export**: preview and export task data as CSV or JSON
-* **Guide**: quick reference for available features
-* **Account**: privacy information and planned v2 features
+A task can run across multiple days, which makes analytics more difficult than simply storing a total duration.
 
-## Code Style
+To solve this, the application maintains a separate daily time store in localStorage. Each timer update only records the newly elapsed time for the current day, allowing the analytics dashboard to display accurate daily productivity data.
 
-Prettier and ESLint are configured. Run both before committing:
+## Future Ideas
 
-```bash
-npm run format:prettier
-npm run format:eslint
-```
+- Cloud sync across devices
+- Team workspaces and shared task boards
+- Recurring tasks and scheduled templates
+- Progressive Web App support
 
-Config files:
+## License
 
-* `.prettierrc`
-* `eslint.config.js`
+MIT — see [LICENSE](./LICENSE) for details.
+
+## Author
+
+**Pritam Sardar**
+
+GitHub: [github.com/pritamsardar-dev](https://github.com/pritamsardar-dev)
+
+LinkedIn: [linkedin.com/in/pritam-sardar-dev](https://www.linkedin.com/in/pritam-sardar-dev/)
+
+Portfolio: [pritamsardar.dev](https://pritamsardar.dev)
+
+Email: [pritamsardar.dev@gmail.com](mailto:pritamsardar.dev@gmail.com)
