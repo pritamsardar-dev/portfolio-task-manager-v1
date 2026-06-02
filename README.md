@@ -102,7 +102,7 @@ To solve this, the application maintains a separate daily time store in localSto
 
 ## License
 
-MIT — see [LICENSE](./LICENSE) for details.
+Licensed under the MIT License. See [LICENSE](./LICENSE) for details.
 
 ## Author
 
