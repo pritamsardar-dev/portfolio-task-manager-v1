@@ -6,7 +6,7 @@ import { getProgress } from "../features/tasks/taskManager";
 // Plays a soft audio cue when a task or daily goal is completed
 const playNotificationSound = () => {
   try {
-    const audio = new Audio("/src/assets/audios/notification-tone.mp3");
+    const audio = new Audio("/audios/notification-tone.mp3");
     audio.volume = 0.55;
     audio.play().catch(() => {});
   } catch {

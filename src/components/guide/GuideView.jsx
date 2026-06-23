@@ -156,16 +156,16 @@ function GuideView() {
           gap: 10px;
         }
 
+        .guide-col {
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+        }
+
         @media (min-width: 640px) {
           .guide-grid {
             grid-template-columns: 1fr 1fr;
             gap: 24px;
-          }
-
-          .guide-col {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
           }
         }
       `}</style>

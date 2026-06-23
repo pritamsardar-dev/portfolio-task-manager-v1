@@ -1,3 +1,18 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+dist-ssr
+build
+coverage
+
+# Environment variables
+.env
+.env.*
+!.env.sample
+!.env.example
+
 # Logs
 logs
 *.log
@@ -7,21 +22,33 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+# Local config
 *.local
 
-# Project files (not for repo)
+# Cache
+.cache
+.parcel-cache
+.eslintcache
+.vite
+.vscode-test
+
+# Project files
 project-context.txt
 
-# Editor directories and files
+# Editor
 .vscode/*
 !.vscode/extensions.json
 .idea
+
+# OS files
 .DS_Store
+Thumbs.db
+
+# Visual Studio
 *.suo
 *.ntvs*
 *.njsproj
 *.sln
+
+# Vim
 *.sw?
