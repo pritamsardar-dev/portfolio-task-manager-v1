@@ -2,7 +2,7 @@
 
 A browser based task manager built for personal productivity. It combines task tracking, per task timers, productivity analytics, and data export without requiring an account or backend.
 
-Live: https://taskflow.pritamsardar.dev  |  Case Study: https://pritamsardar.dev/full-case-study/portfolio-task-manager-v1?source=case-studies
+Live: https://taskflow.pritamsardar.dev  |  Case Study: https://www.pritamsardar.dev/full-case-study/project-row-taskflow?source=case-studies
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset=".github/images/taskflow-hero-dark.png">
